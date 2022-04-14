@@ -1,23 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import { useTransition, animated } from 'react-spring';
+
 
 function App() {
+  const [isVisible, setIsVisible] = useState(false);
+  const transition = useTransition(isVisible, { 
+    from: {},
+    enter: {},
+    leave: {},
+  });
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <button onClick={() => {
+            setIsVisible(v => !v);
+            //
+            }}>{isVisible ? 'Close me!' : 'Open me!'}
+      </button>
+      <div className='container'>
+        {isVisible ? <div className="item"/> : ''}
+       {transition((style, item) => 
+          item ? <animated.div className="item" /> : ''
+        )}
+      </div>
     </div>
   );
 }
